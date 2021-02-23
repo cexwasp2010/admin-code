@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @color.name %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @color.color %>
+</p>
+
+<p>
+  <strong>Pantone:</strong>
+  <%= @color.pantone %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @color.year %>
+</p>
+
+<div><%= link_to 'Show', color_path(@color.id) %></div>
+<div><%= link_to 'Edit', edit_color_path(@color.id) %></div>
+<div><%= link_to 'Destroy', color, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+
+<%= link_to 'Back', colors_path %>
