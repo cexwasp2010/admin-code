@@ -1,27 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div id="notice"><%= notice %></div>
 
-<p>
-  <strong>Name:</strong>
+<div>
+  <strong>Nombre:</strong>
   <%= @color.name %>
-</p>
+</div>
+</br>
 
-<p>
+<div>
   <strong>Color:</strong>
   <%= @color.color %>
-</p>
+</div>
+</br>
 
-<p>
+<div>
   <strong>Pantone:</strong>
   <%= @color.pantone %>
-</p>
+</div>
+</br>
 
-<p>
-  <strong>Year:</strong>
+<div>
+  <strong>Año:</strong>
   <%= @color.year %>
-</p>
+</div>
+</br>
 
-<div><%= link_to 'Show', color_path(@color.id) %></div>
-<div><%= link_to 'Edit', edit_color_path(@color.id) %></div>
-<div><%= link_to 'Destroy', color, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-
-<%= link_to 'Back', colors_path %>
+<%if current_user.profile == 2%>
+	<div class="btn btn-primary"><%= link_to 'Editar', edit_color_path(@color.id) %></div>
+	<div class="btn btn-primary"><%= link_to 'Eliminar', color_path(@color.id), method: :delete, data: { confirm: '¿Estás seguro?' } %></div>
+<% end %>
+<div class="btn btn-light"><%= link_to 'Volver', colors_path %></div>

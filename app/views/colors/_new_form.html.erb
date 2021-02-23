@@ -1,4 +1,4 @@
-<%= form_with(model: color, url: color_path(color), method: "patch") do |form| %>
+<%= form_with(model: color) do |form| %>
   <% if color.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(color.errors.count, "error") %> prohibited this color from being saved:</h2>

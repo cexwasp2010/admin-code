@@ -1,4 +1,5 @@
 class ColorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_color, only: %i[ show edit update destroy ]
 
   # GET /colors or /colors.json
@@ -15,7 +16,6 @@ class ColorsController < ApplicationController
 
   # GET /colors/1 or /colors/1.json
   def show
-
   end
 
   # GET /colors/new
@@ -29,10 +29,11 @@ class ColorsController < ApplicationController
 
   # POST /colors or /colors.json
   def create
-    @color = Color.new(color_params)
-
     respond_to do |format|
-      if @color.save
+      require 'rest-client'
+      response = RestClient.post('localhost:3001/colores/', color_params.as_json, {:Authorization => 'admin irizREhyoG6Ejwr4AcjsQME9'})
+      if response.code == 200
+        @color = JSON.parse(response.body)
         format.html { redirect_to @color, notice: "Color was successfully created." }
         format.json { render :show, status: :created, location: @color }
       else
@@ -45,7 +46,11 @@ class ColorsController < ApplicationController
   # PATCH/PUT /colors/1 or /colors/1.json
   def update
     respond_to do |format|
-      if @color.update(color_params)
+      require 'rest-client'
+      response = RestClient.put('localhost:3001/colores/'+@color.id.to_s, color_params.as_json, {:Authorization => 'admin irizREhyoG6Ejwr4AcjsQME9'})
+      if response.code == 200
+        @color = JSON.parse(response.body)
+
         format.html { redirect_to @color, notice: "Color was successfully updated." }
         format.json { render :show, status: :ok, location: @color }
       else
@@ -57,8 +62,9 @@ class ColorsController < ApplicationController
 
   # DELETE /colors/1 or /colors/1.json
   def destroy
-    @color.destroy
+    
     respond_to do |format|
+      RestClient.delete 'localhost:3001/colores/'+@color.id.to_s, {:Authorization => 'admin irizREhyoG6Ejwr4AcjsQME9'}
       format.html { redirect_to colors_url, notice: "Color was successfully destroyed." }
       format.json { head :no_content }
     end
@@ -69,13 +75,13 @@ class ColorsController < ApplicationController
     def set_color
       @color = nil 
       require 'rest-client'
-        # admin irizREhyoG6Ejwr4AcjsQME9
-        response = RestClient::Request.execute(method: :get, url: 'localhost:3001/colores/'+params[:id],
-                            headers: {Authorization: 'user vURjXbANsTEvaSf5vQ5GVg8h'})
-        if response.code == 200
-          # @color = JSON.parse(response.body).collect { |i| [i["name"], i["id"]] }
-          @color = Color.new(JSON.parse(response.body))
-        end
+      # admin irizREhyoG6Ejwr4AcjsQME9
+      response = RestClient::Request.execute(method: :get, url: 'localhost:3001/colores/'+params[:id],
+                          headers: {Authorization: 'user vURjXbANsTEvaSf5vQ5GVg8h'})
+      if response.code == 200
+        # @color = JSON.parse(response.body).collect { |i| [i["name"], i["id"]] }
+        @color = Color.new(JSON.parse(response.body))
+      end
     end
 
     # Only allow a list of trusted parameters through.

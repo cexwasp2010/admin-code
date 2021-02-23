@@ -11,6 +11,10 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <div class="btn btn-light float-right"><%= link_to "Logout", destroy_user_session_path, :class=> "nav-item nav-link active", :method => :delete %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

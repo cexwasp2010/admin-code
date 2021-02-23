@@ -1,6 +1,6 @@
-<h1>Editing Color</h1>
+<h1>Editando Color</h1>
 
 <%= render 'form', color: @color %>
 
-<%= link_to 'Show', @color %> |
-<%= link_to 'Back', colors_path %>
+<div class="btn btn-primary"><%= link_to 'Ver', color_path(@color.id) %></div>
+<div class="btn btn-light"><%= link_to 'Volver', colors_path %></div>
